@@ -52,7 +52,7 @@ namespace http
 
     class HTTPData {
     public:
-        HTTPData() : valid{true}, method{GET}, file{DEFAULT_FILE_NAME}, version{HTTP_10} {}
+        HTTPData() : valid{true}, method{GET}, file{std::string{DEFAULT_SITE_DIRECTORY, DEFAULT_FILE_NAME}}, version{HTTP_10} {}
 
         HTTPData(std::string packet)
         {

@@ -7,6 +7,7 @@
 class WebServer {
 public:
     WebServer(int port) { this->CreateSocket(port); }
+    ~WebServer() { this->CloseSocket(); }
 
     void CreateSocket(int port);
     void CloseSocket();

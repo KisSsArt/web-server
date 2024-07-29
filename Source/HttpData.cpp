@@ -36,7 +36,7 @@ HTTPData* HTTPData::ParsePacket(std::string packet)
     currentPos = firstLine.find("/");
     if (currentPos == std::string::npos)
     {
-        this->setFile(DEFAULT_FILE_NAME);
+        this->setFile(std::string{DEFAULT_SITE_DIRECTORY, DEFAULT_FILE_NAME});
         this->setHTTPVersion(HTTP_11);
         return this;
     }
@@ -58,7 +58,7 @@ HTTPData* HTTPData::ParsePacket(std::string packet)
                     fileName = fileName.substr(0, _pos);
             }
             else
-                fileName = DEFAULT_FILE_NAME;
+                fileName = std::string{DEFAULT_SITE_DIRECTORY, DEFAULT_FILE_NAME};
         }
         currentPos = endNamePos;
     }

@@ -20,6 +20,5 @@ int main(int argc, char* argv[])
         server.CreateProcessingThread(accept(server.GetServerSocket(), nullptr, nullptr));
     }
 
-    server.CloseSocket();
     return 0;
 }
