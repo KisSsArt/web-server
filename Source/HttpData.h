@@ -7,10 +7,6 @@
 
 namespace http
 {
-    inline std::string httpEmptyHeader =  "HTTP/ \r\n"
-                                    "Content-Type: text/html\r\n"
-                                    "\r\n";
-
     /*
         HTTP status codes
     */
@@ -34,6 +30,11 @@ namespace http
         {HTTP_NOT_FOUND, "404 Not Found"},
     };
 
+    inline std::map<std::string, std::string> mimeTypeMap {
+        {"html", "text/html"},
+        {"jpeg", "image/jpeg"},
+    };
+
     /*
         HTTP versions
     */
@@ -52,7 +53,7 @@ namespace http
 
     class HTTPData {
     public:
-        HTTPData() : valid{true}, method{GET}, file{std::string{DEFAULT_SITE_DIRECTORY, DEFAULT_FILE_NAME}}, version{HTTP_10} {}
+        HTTPData() : valid{true}, method{GET}, file{std::string{DEFAULT_SITE_DIRECTORY, DEFAULT_FILE_NAME}}, mime{"html"}, version{HTTP_10} {}
 
         HTTPData(std::string packet)
         {
@@ -62,22 +63,25 @@ namespace http
 
         HTTPData* ParsePacket(std::string packet);
         char* CreateResponsePacket();
-        char* CreateResponseHeader(char* response, HTTP_ver version, HTTP_STATUS status);
+        char* CreateResponseHeader(char* response, HTTP_STATUS status);
 
         bool getValid() { return this->valid; }
         HTTP_met getHTTPMethod() { return this->method; }
         std::string getFile() { return this->file; }
+        std::string getMime() { return this->mime; }
         HTTP_ver getHTTPVersion() { return this->version; }
 
         void setValid(bool valid) { this->valid = valid; }
         void setHTTPMethod(HTTP_met method) { this->method = method; }
         void setFile(std::string file) { this->file = file; }
+        void setMime(std::string mime) { this->mime = mime; }
         void setHTTPVersion(HTTP_ver version) { this->version = version; }
 
     private:
         bool valid;
         HTTP_met method;
         std::string file;
+        std::string mime;
         HTTP_ver version;
     };
 }
